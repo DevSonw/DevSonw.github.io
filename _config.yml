@@ -3,9 +3,9 @@
 # Site wide configuration
 ####################################
 #
-title:       "Renyuan's blog"
-description: 'A backend developer who loves design awesome things. Working for RendezvousCheznous atm in Marseille, France.'
-url:         # the base hostname & protocol for your site
+title:       "RainbowColors's blog"
+description: '好好学习,天天向上.'
+url:         'devsonw.net'
 
 #
 ###################################
@@ -31,22 +31,22 @@ kramdown:
 ####################################
 #
 owner:
-  name: Renyuan
-  avatar: avatar.jpg
-  job: "PHP & Ruby Developer"
-  bio: "A backend developer who loves design awesome things. Working for RendezvousCheznous atm in Marseille, France."
-  email: zourenyuan@gmail.com
-  disqus-shortname: renyuanzblog
+  name: RainbowColors
+  avatar: avatar.png
+  job: "iOS & JS Developer"
+  bio: "好好学习,天天向上."
+  email: devsonw@gmail.com
+  disqus-shortname: RainbowColorsblog
   twitter: alittlered3 #username
   facebook: #username
   google:
     plus: #username
-    analytics: UA-62251910-1
+    analytics: #analytics
     verify:
     ad-client:
     ad-slot:
   bing-verify:
-  github: renyuanz #username
+  github: devsonw #username
   stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
   linkedin: #username
   xing: #username
