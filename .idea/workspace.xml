@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed39d32c-7038-4794-a6a2-237b7ed61d94" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.sass-cache/45712e3fbe3519ca17532992740f92f7edd189f2/_layout.scssc" afterPath="$PROJECT_DIR$/.sass-cache/45712e3fbe3519ca17532992740f92f7edd189f2/_layout.scssc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/articles/2015-09/New-site-new-life.html" afterPath="$PROJECT_DIR$/_site/articles/2015-09/New-site-new-life.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/articles/2016-01/Start-line.html" afterPath="$PROJECT_DIR$/_site/articles/2016-01/Start-line.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_config.yml" afterPath="$PROJECT_DIR$/_config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/pages/_layout.scss" afterPath="$PROJECT_DIR$/_sass/pages/_layout.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/articles/2015-04/customizing-your-iterm2.html" afterPath="$PROJECT_DIR$/_site/articles/2015-04/customizing-your-iterm2.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/feed.xml" afterPath="$PROJECT_DIR$/_site/feed.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/archive/index.html" afterPath="$PROJECT_DIR$/_site/archive/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/categories/index.html" afterPath="$PROJECT_DIR$/_site/categories/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/tags/index.html" afterPath="$PROJECT_DIR$/_site/tags/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/css/main.css" afterPath="$PROJECT_DIR$/_site/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/articles/2015-09/my-first-rails-project.html" afterPath="$PROJECT_DIR$/_site/articles/2015-09/my-first-rails-project.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/articles/2015-12/tips-for-Git-users.html" afterPath="$PROJECT_DIR$/_site/articles/2015-12/tips-for-Git-users.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MyBlog.iws" />
@@ -90,8 +78,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_site/archive/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38674033">
-              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.8839779">
+              <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -436,8 +424,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_site/archive/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38674033">
-          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.8839779">
+          <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
           <folding />
         </state>
       </provider>
