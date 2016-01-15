@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Start line</title>
-  <meta name="description" content="Git is a powerful tool for Web development, here is some useful tips for Git beginners.">
+  <meta name="description" content="Welcome to Rainbowcolor‘s blog。">
 
   <!-- CSS files -->
   <link rel="stylesheet" href="http://devsnow.net/css/font-awesome.min.css">
@@ -113,39 +113,7 @@
   </header>
 
   <article class="post-content">
-    <p>If you know nothing about Git, google it, this is not the right place to start learning Git. I wrote this article for developers who know already the basic Git usage and use Git as an important piece of workflow.</p>
-
-<h3 id="always-use-git-status">Always use <code>git status</code></h3>
-
-<p>It’s good to start off using git with good habits. Using <code>git status</code> to find where you are is one of them. The terminal’s output shows the actions you can do with the current status.</p>
-
-<h3 id="i-want-see-a-list-of-details-of-my-last-n-commits">I want see a list of details of my last N commits</h3>
-
-<p>For example: to see your last 5 commits</p>
-
-<pre><code class="language-shell">git log -n 5 --author=Salvador
-</code></pre>
-
-<p>If you want a simpler one line solution:</p>
-
-<pre><code class="language-shell">git log --oneline -n 5 --author=Salvador
-</code></pre>
-
-<p>If you like the single line version, try creating an alias for git log like this (this is what I have for zsh)</p>
-
-<pre><code class="language-shell">alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"
-</code></pre>
-
-<p>Now, I can just use:</p>
-
-<pre><code class="language-shell">glog -n 5
-</code></pre>
-
-<p>And I get a nice output.</p>
-
-<p>Which is colorized, shows the name of the author and also shows the graph and you can still pass in other flags (such as –author) which lets you filter it even more.</p>
-
-<p><a href="http://stackoverflow.com/questions/13542213/git-see-a-list-of-comments-of-my-last-n-commits#answer-13542327">You can see the original answer here.</a></p>
+    <p>Welcome to Rainbowcolor‘s blog。</p>
 
 
   </article>
