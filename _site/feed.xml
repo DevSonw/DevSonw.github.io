@@ -5,9 +5,55 @@
     <description>好好学习,天天向上.</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 15 Jan 2016 07:21:30 +0100</pubDate>
-    <lastBuildDate>Fri, 15 Jan 2016 07:21:30 +0100</lastBuildDate>
+    <pubDate>Fri, 15 Jan 2016 08:36:05 +0100</pubDate>
+    <lastBuildDate>Fri, 15 Jan 2016 08:36:05 +0100</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Start line</title>
+        <description>&lt;p&gt;If you know nothing about Git, google it, this is not the right place to start learning Git. I wrote this article for developers who know already the basic Git usage and use Git as an important piece of workflow.&lt;/p&gt;
+
+&lt;h3 id=&quot;always-use-git-status&quot;&gt;Always use &lt;code&gt;git status&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;It’s good to start off using git with good habits. Using &lt;code&gt;git status&lt;/code&gt; to find where you are is one of them. The terminal’s output shows the actions you can do with the current status.&lt;/p&gt;
+
+&lt;h3 id=&quot;i-want-see-a-list-of-details-of-my-last-n-commits&quot;&gt;I want see a list of details of my last N commits&lt;/h3&gt;
+
+&lt;p&gt;For example: to see your last 5 commits&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;git log -n 5 --author=Salvador
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you want a simpler one line solution:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;git log --oneline -n 5 --author=Salvador
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you like the single line version, try creating an alias for git log like this (this is what I have for zsh)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;alias glog=&quot;git log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&amp;lt;%an&amp;gt;%Creset&#39; --abbrev-commit&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, I can just use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;glog -n 5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And I get a nice output.&lt;/p&gt;
+
+&lt;p&gt;Which is colorized, shows the name of the author and also shows the graph and you can still pass in other flags (such as –author) which lets you filter it even more.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/13542213/git-see-a-list-of-comments-of-my-last-n-commits#answer-13542327&quot;&gt;You can see the original answer here.&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 15 Jan 2016 00:00:00 +0100</pubDate>
+        <link>/articles/2016-01/Start-line</link>
+        <guid isPermaLink="true">/articles/2016-01/Start-line</guid>
+        
+        
+        <category>Git</category>
+        
+      </item>
     
       <item>
         <title>Tips for Git users</title>

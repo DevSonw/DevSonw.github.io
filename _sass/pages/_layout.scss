@@ -20,6 +20,11 @@
 .cover-card {
   color: $text-color;
   padding: 0 30px;
+  .sider_image{
+    width: 100%;
+    height: 100%;
+    float: none;
+  }
   .avatar {
     border-radius: 50%;
     width: 100px;
