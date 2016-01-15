@@ -12,7 +12,7 @@ url:         #
 # Jekyll configuration
 ####################################
 #
-timezone:          Europe/Paris
+timezone:          Asia/Shanghai
 markdown:          kramdown
 highlighter:       pygments
 excerpt_separator: <!--more-->
@@ -33,8 +33,8 @@ kramdown:
 owner:
   name: RainbowColors
   avatar: avatar.png
-  job: "iOS & JS Developer"
-  bio: "好好学习,天天向上."
+  job: " iOS & JS Developer"
+  bio: "嗨,你好。我是彩虹,一名来自中国·上海的iOS开发者。"
   email: devsonw@gmail.com
   disqus-shortname: RainbowColorsblog
   twitter:  #username
