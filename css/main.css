@@ -1545,7 +1545,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #cbffff;
+  background: #450bac;
 }
 .sidebar-nav {
   margin: 0 0 20px;
@@ -1638,7 +1638,7 @@ pre .javascript .function {
   width: 100%;
 }
 .footer {
-  font-size: 14px;
+  font-size: 8px;
   color: #999;
 }
 .footer img {
