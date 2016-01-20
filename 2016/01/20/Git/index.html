@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="RainbowColor, blog, iOS, js" />
 
 
 
@@ -63,10 +63,10 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/20/Git/index.html">
 <meta property="og:site_name" content="DevSonw">
 <meta property="og:description" content="本系列将通过三篇文章：Git–客户端，Git–服务器，Git–底层原理。三个方面来介绍Git的基础用法，窍门技巧和以及其实现原理。　　版本控制是一种记录若干文件内容变化，以便将来查阅特定版本修订的系统。使用版本控制系统可以将文件回溯到修改之前的某个状态，甚至将整个项目回滚到某个时间点的状态。 可以用来比较文件的细节变化，查看谁在某个时刻修改了某个文件，等等。使用版本控制的系统意味着，通常情况下，就">
-<meta property="og:image" content="http://yoursite.com/images/git/Git-logo.png">
-<meta property="og:image" content="http://yoursite.com/images/git/svn.png">
-<meta property="og:image" content="http://yoursite.com/images/git/git.png">
-<meta property="og:updated_time" content="2016-01-20T13:48:18.000Z">
+<meta property="og:image" content="http://yoursite.com/images/gitclient/Git-logo.png">
+<meta property="og:image" content="http://yoursite.com/images/gitclient/svn.png">
+<meta property="og:image" content="http://yoursite.com/images/gitclient/git.png">
+<meta property="og:updated_time" content="2016-01-20T14:25:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git--客户端篇">
 <meta name="twitter:description" content="本系列将通过三篇文章：Git–客户端，Git–服务器，Git–底层原理。三个方面来介绍Git的基础用法，窍门技巧和以及其实现原理。　　版本控制是一种记录若干文件内容变化，以便将来查阅特定版本修订的系统。使用版本控制系统可以将文件回溯到修改之前的某个状态，甚至将整个项目回滚到某个时间点的状态。 可以用来比较文件的细节变化，查看谁在某个时刻修改了某个文件，等等。使用版本控制的系统意味着，通常情况下，就">
@@ -299,7 +299,7 @@
       
 
       
-        <p>  <img src="/images/git/Git-logo.png" alt=""><br>　　本系列将通过三篇文章：Git–客户端，Git–服务器，Git–底层原理。三个方面来介绍Git的基础用法，窍门技巧和以及其实现原理。<br>　　版本控制是一种记录若干文件内容变化，以便将来查阅特定版本修订的系统。使用版本控制系统可以将文件回溯到修改之前的某个状态，甚至将整个项目回滚到某个时间点的状态。 可以用来比较文件的细节变化，查看谁在某个时刻修改了某个文件，等等。使用版本控制的系统意味着，通常情况下，就算你搞砸了整个项目，把文件删的删，改的改，也可以轻松地恢复到以前正常的样子。<br>　　集中化的版本控制系统（CVCS）诸如CVS、SVN以及Perforce等，都有一个单一的集中管理服务器，保存所有文件的修订版本，协同工作的人们都通过客户端连接到这台服务器，更新文件或提交更新。这种方式带来了很多好处，但是也有弊端，显而易见的缺点是中央服务器的单点故障。若是宕机，那么在这段时间内，谁都无法提交更新，也无法协同工作。如果中央服务器的磁盘发生故障，并且没有及时做好备份，还会有数据丢失的风险。于是，分布式版本控制系统（DVCS）诞生了。诸如Git、Mercurial、Bazaar和Darcs等，客户端不仅只是更新了最新文件，可以把文件仓库完整的镜像下来。这样，任何一处系统工作的服务器发生了故障，事后都可以用任何一个镜像的本地仓库恢复，因为每次操作都是针对仓库的完整备份。<br>  <img src="/images/git/svn.png" alt=""><img src="/images/git/git.png" alt=""> </p>
+        <p>  <img src="/images/gitclient/Git-logo.png" alt=""><br>　　本系列将通过三篇文章：Git–客户端，Git–服务器，Git–底层原理。三个方面来介绍Git的基础用法，窍门技巧和以及其实现原理。<br>　　版本控制是一种记录若干文件内容变化，以便将来查阅特定版本修订的系统。使用版本控制系统可以将文件回溯到修改之前的某个状态，甚至将整个项目回滚到某个时间点的状态。 可以用来比较文件的细节变化，查看谁在某个时刻修改了某个文件，等等。使用版本控制的系统意味着，通常情况下，就算你搞砸了整个项目，把文件删的删，改的改，也可以轻松地恢复到以前正常的样子。<br>　　集中化的版本控制系统（CVCS）诸如CVS、SVN以及Perforce等，都有一个单一的集中管理服务器，保存所有文件的修订版本，协同工作的人们都通过客户端连接到这台服务器，更新文件或提交更新。这种方式带来了很多好处，但是也有弊端，显而易见的缺点是中央服务器的单点故障。若是宕机，那么在这段时间内，谁都无法提交更新，也无法协同工作。如果中央服务器的磁盘发生故障，并且没有及时做好备份，还会有数据丢失的风险。于是，分布式版本控制系统（DVCS）诞生了。诸如Git、Mercurial、Bazaar和Darcs等，客户端不仅只是更新了最新文件，可以把文件仓库完整的镜像下来。这样，任何一处系统工作的服务器发生了故障，事后都可以用任何一个镜像的本地仓库恢复，因为每次操作都是针对仓库的完整备份。<br>  <img src="/images/gitclient/svn.png" alt=""><img src="/images/gitclient/git.png" alt=""> </p>
 <h2 id="Git_u57FA_u7840"><a href="#Git_u57FA_u7840" class="headerlink" title="Git基础"></a>Git基础</h2><h3 id="u57FA_u672C_u72B6_u6001"><a href="#u57FA_u672C_u72B6_u6001" class="headerlink" title="基本状态"></a>基本状态</h3><p>　　对于任何一个文件，在Git内都只有只有三种状态：已暂存(staged)，已修改(modified)，已提交(committed)。已暂存表示把已修改的文件放在下次要提交时保存的清单中，已修改表示文件发生了改变，已提交表示文件已经被安全的保存在本地仓库中了。在保存到Git之前，所有的数据都要进行内容的校验和计算，并将此结果作为数据的唯一标识和索引。这项特性作为Git的基本原则，建立在整个Git架构的最底层。Git使用SHA-1算法计算数据的校验和，通过对文件内容或目录结构算出一个SHA-1哈希值，作为指纹字符串，该字符由40位十六进制字符组成。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2318191a1bc128da23f1a2f0da123a00976dcaf2</span><br></pre></td></tr></table></figure></p>
 <h3 id="u5B89_u88C5Git"><a href="#u5B89_u88C5Git" class="headerlink" title="安装Git"></a>安装Git</h3><h4 id="u4ECE_u5B98_u65B9_u5B89_u88C5"><a href="#u4ECE_u5B98_u65B9_u5B89_u88C5" class="headerlink" title="从官方安装"></a>从官方安装</h4><p>　　可以从官方下载Git,然后编译,并且安装。具体的方法本文不再阐述。建议从官方安装，以便及时获得更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://git-scm.com/download</span><br></pre></td></tr></table></figure></p>
 <h3 id="u914D_u7F6EGit"><a href="#u914D_u7F6EGit" class="headerlink" title="配置Git"></a>配置Git</h3><p>　　一般在刚刚安装好Git的系统上，需要配置一下Git的工作环境。Git提供了一个叫做git congif的工具，专门来配置或读取相应的工作环境变量。这些环境变量决定了Git在各个环节的具体工作和行为。    </p>
@@ -367,12 +367,6 @@
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/git/" rel="tag">#git</a>
-          
-        </div>
       
 
       
@@ -471,7 +465,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">0</span>
               <span class="site-state-item-name">标签</span>
               
           </div>
