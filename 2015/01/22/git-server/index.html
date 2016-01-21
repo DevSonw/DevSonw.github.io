@@ -1,0 +1,785 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.icons?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="本系列将通过三篇文章：Git–客户端，Git–服务器，Git–底层原理。三个方面来介绍Git的基础用法，窍门技巧和以及其实现原理。
+协议　　上一篇Git–客户端，介绍了Git的使用方法。我们知道了远程仓库这个概念，这个远程仓库就是“Git 服务器”。Git可以使用4种协议传输数据：本地协议、Git协议、SSH协议和HTTP(S)协议。
+本地协议　　你可以在自己的电脑上创建本地Git仓库，在本机进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git--服务器篇">
+<meta property="og:url" content="http://yoursite.com/2015/01/22/git-server/index.html">
+<meta property="og:site_name" content="DevSonw">
+<meta property="og:description" content="本系列将通过三篇文章：Git–客户端，Git–服务器，Git–底层原理。三个方面来介绍Git的基础用法，窍门技巧和以及其实现原理。
+协议　　上一篇Git–客户端，介绍了Git的使用方法。我们知道了远程仓库这个概念，这个远程仓库就是“Git 服务器”。Git可以使用4种协议传输数据：本地协议、Git协议、SSH协议和HTTP(S)协议。
+本地协议　　你可以在自己的电脑上创建本地Git仓库，在本机进行">
+<meta property="og:image" content="http://yoursite.com/images/gitclient/Git-logo.png">
+<meta property="og:updated_time" content="2016-01-21T09:24:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git--服务器篇">
+<meta name="twitter:description" content="本系列将通过三篇文章：Git–客户端，Git–服务器，Git–底层原理。三个方面来介绍Git的基础用法，窍门技巧和以及其实现原理。
+协议　　上一篇Git–客户端，介绍了Git的使用方法。我们知道了远程仓库这个概念，这个远程仓库就是“Git 服务器”。Git可以使用4种协议传输数据：本地协议、Git协议、SSH协议和HTTP(S)协议。
+本地协议　　你可以在自己的电脑上创建本地Git仓库，在本机进行">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Git--服务器篇 | DevSonw </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">DevSonw</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">RainbowColors's blog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '8DeogHD4sjLMNr-DtRod','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Git--服务器篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-01-22T09:03:38+08:00" content="2015-01-22">
+              2015-01-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/22/git-server/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/22/git-server/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>  <img src="/images/gitclient/Git-logo.png" alt=""><br>　　本系列将通过三篇文章：Git–客户端，Git–服务器，Git–底层原理。三个方面来介绍Git的基础用法，窍门技巧和以及其实现原理。</p>
+<h2 id="u534F_u8BAE"><a href="#u534F_u8BAE" class="headerlink" title="协议"></a>协议</h2><p>　　上一篇Git–客户端，介绍了Git的使用方法。我们知道了远程仓库这个概念，这个远程仓库就是“Git 服务器”。Git可以使用4种协议传输数据：本地协议、Git协议、SSH协议和HTTP(S)协议。</p>
+<h3 id="u672C_u5730_u534F_u8BAE"><a href="#u672C_u5730_u534F_u8BAE" class="headerlink" title="本地协议"></a>本地协议</h3><p>　　你可以在自己的电脑上创建本地Git仓库，在本机进行克隆，推送和抓取。要从本机仓库克隆或者将其作为远程仓库添加到工程里，可以用指向改仓库的路径作为URL。比如下面两种方式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> /path/git/project.git</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">$ git <span class="built_in">clone</span> file://path/project.git</span><br></pre></td></tr></table></figure></p>
+<p>　　这两种方式是不同的。如果使用了”file://“,Git会调用它平时通过网络来传输数据的工序,而这种方式的效率相对很低。使用 file:// 前缀的方式可以创建一个不包含无关引用或对象的干净仓库副本，比如从其他版本控制导入。通常使用普通路径,因为一般情况下这样总是更快。<br>　　本地协议的优点在于简单，一些开发工具就支持在创建项目的同时创建本地仓库(比如Xcode)。这个也是从别人的工作目录里获取数据的快捷方法。直接从对方仓库获得，就不需要对方将数据推送到服务器，然后你再从服务器获得。当然。这种方式也是有缺点的。比如你在公司机器上创建了仓库，若是在家要访问这个仓库，就要先挂载远程硬盘这和基于网络连接的访问相比更加困难和缓慢。而且在同一个服务器上,如果二者同时允许 Git 访问本地硬盘,通过 NFS 访问仓库通常会比SSH慢。下面我们就来说说SSH。</p>
+<h3 id="SSH_u534F_u8BAE"><a href="#SSH_u534F_u8BAE" class="headerlink" title="SSH协议"></a>SSH协议</h3><p>　　通过SSH克隆一个Git仓库可以像下面这样给出ssh://的URL，或不指名协议名称。<strong>这时Git会默认使用SSH</strong>。也可以不指名用户,Git会默认使用当前用户。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> ssh://user@server:project.git</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">$ git <span class="built_in">clone</span> user@server:project.git</span><br></pre></td></tr></table></figure></p>
+<p>　　SSH是唯一一个同时便于读和写操作的网络协议。另外两个网络协议 (HTTP 和 Git)通常都是只读的,所以虽然二者对大多数人都可用,但执行写操作时还是需要SSH。SSH同时也是一个验证授权的网络协议;而因为其普遍性,通常也很容易架设和使用。<br>　　使用SSH有很多的好处。首先要对仓库进行写权限，就需要使用SSH，然后SSH的假设比较简单，再次，使用SSH进行访问是安全的(传输数据经过加密和授权)，最后，SSH很高效，会在传输之前尽可能的压缩数据。当然SSH也有一些缺点，比如不能通过它实现仓库的匿名访问。即使仅为读取数据,也必须在能通过SSH访问主机的前提下才能访问仓库,这使得SSH不利于开源的项目。如果想允许对项目的匿名只读访问,那么除了为自己推送而架设SSH协议之外,还需要其他协议来让别人获取数据。</p>
+<h3 id="Git_u534F_u8BAE"><a href="#Git_u534F_u8BAE" class="headerlink" title="Git协议"></a>Git协议</h3><p>　　Git协议是一个包含在Git软件包种的特殊的守护进程，它会监听一个提供类似于SSH服务的特定端口(9418),而不需任何授权。Git协议是目前最快的协议，它使用与SSH相同的传输机制，但是省去了加密和授权步骤。使用Git协议管理仓库，需要创建git-export-daemon-ok文件,它是Git协议进程提供仓库服务的必要组件,但该服务没有什么安全措施。要么所有人都能克隆Git仓库,要么谁也不能。这代表该协议通常不能用来进行推送。你可以允许推送操作,但是由于没有授权机制,一旦允许该操作,网络上任何一个知道项目 URL 的人将都有推送权限。这是非常危险的。</p>
+<h3 id="HTTP/S__u534F_u8BAE"><a href="#HTTP/S__u534F_u8BAE" class="headerlink" title="HTTP/S 协议"></a>HTTP/S 协议</h3><p>　　最后是HTTP/S协议。HTTP/S协议便于假设，只需要把Git文件放在HTTP的文件目录下，配置一个特定的post-update(hook)，就可以了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /var/www/htdoc</span><br><span class="line">$ git <span class="built_in">clone</span> --bare /path/to/git project.git</span><br><span class="line">$ <span class="built_in">cd</span> project.git</span><br><span class="line">$ mv hooks/post-update.sample hooks/post-update</span><br><span class="line">$ chomd a+x hooks/post-update</span><br></pre></td></tr></table></figure></p>
+<p>　　成功以后，就可以使用HTTP协议来操作仓库了:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> http://path/project.git</span><br></pre></td></tr></table></figure></p>
+<p>　　HTTP/S协议的好处是便于架设，使用HTTPS协议可以加密传输内容，也可以要求客户端使用特定签名的SSL证书。HTTP作为常见的协议，企业级的防火墙一般也允许其通信的端口。但HTTP/S协议也有不好的一面，首先是传输体积大，因为传输过过程中没有服务端的动态计算，所以效率可能会有些低。</p>
+<h2 id="u90E8_u7F72Git"><a href="#u90E8_u7F72Git" class="headerlink" title="部署Git"></a>部署Git</h2><p>　　开始架设Git服务器，需要先把一个现存的仓库导出为新的仓库(不包含当前工作目录的仓库)。把一个仓库克隆为纯仓库，可以使用git –bare选项，纯仓库的目录以.git结尾：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> --bare your_project your_project.git</span><br></pre></td></tr></table></figure></p>
+<p>　　有了仓库的纯副本以后需要把这个副本放在服务器上，并设定相关的协议。假如一个域名为 git.example.com的服务器已经架设好，应可以通过SSH访问，而你想要把Git仓库存储在/opt/git目录下，只需要下面的操作:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp -r your_project.git user@git.example.com:/opt/git</span><br></pre></td></tr></table></figure></p>
+<p>　　成功以后，对该服务器有SHH访问权限并能读写/opt/git的用户就可以操作该仓库。比如克隆:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> user@git.example.com:/opt/git/your_project.git</span><br></pre></td></tr></table></figure></p>
+<p>　　如果有多人来操作这个仓库，可以在主机上建立一个Git账户，收集每个要操作仓库人的SSH公钥，然后将其加入Git账户的~/.ssh/authorized_keys 文件.这样一来，所有都可以通过git账户访问主机，由于使用不同的SSH，所以并不会影响修改对仓库的操作记录。</p>
+<h2 id="u751F_u6210SSH__u516C_u94A5"><a href="#u751F_u6210SSH__u516C_u94A5" class="headerlink" title="生成SSH 公钥"></a>生成SSH 公钥</h2><p>　　要管理自己的SSH,首先可以先查看是否已经存在一个公钥了。SSH公钥默认存储在账户的~/.ssh 目录。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~/.ssh</span><br><span class="line">$ ls</span><br><span class="line"><span class="comment"># id_rsa id_rsa.pub known_hosts</span></span><br></pre></td></tr></table></figure></p>
+<p>　　可以看到上面目录中.pub文件是公钥，另一个是密钥。假如没有这些文件（甚至没有.ssh).可以使用ssh -keygen来创建他们。成功以后可以查看.pub文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub</span><br><span class="line">ssh-rsa vczhPaYACe3bP6Vo0Au49jDNZQpJpmJHQZIjV6NppgVW0D</span><br><span class="line">+vczhPaYACe3bP6Vo0Au49jDNZQpJpmJHQZIjV6NppgVW0D</span><br><span class="line">+fsx7GiWyzGPgviRiZmB9vunitM94Gy3cpRjJxyn2IcGgACe3bP6Vo0Au</span><br><span class="line"><span class="number">49</span>jDNZQpJpmJHQZIjV6NppgVW0DopUKP5dpQlE4IFFdMZscfdAWDR9D0G</span><br><span class="line">V+NS29HsekHjPNAnpE1E1i6yjcIaiBBsgcDyP</span><br><span class="line">+vczhPaYACe3bP6Vo0Au49jDNZQpJpmJHQZIjV6NppgVW0D</span><br><span class="line">+<span class="number">6</span>QtqlSabEL0Mh7wnpie4MHqftzdEjOK4gBXwm75CsyrRPziQZ1gcsf1T</span><br><span class="line">lbi0MkN6zvyJZY7OR6yN45cmop3W1uH1H5NZAUAJ devsnow@rainbow.local</span><br></pre></td></tr></table></figure></p>
+<p>　　如果需要给多个操作系统设置相同的SSH，可以参考github的帮助页面:<a href="https://help.github.com/articles/generating-ssh-keys/" target="_blank" rel="external">https://help.github.com/articles/generating-ssh-keys/</a></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag">#Git</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/20/Git/" rel="next" title="Git--客户端篇">
+                <i class="fa fa-chevron-left"></i> Git--客户端篇
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/01/22/git-server/"
+           data-title="Git--服务器篇" data-url="http://yoursite.com/2015/01/22/git-server/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="RainbowColors" />
+          <p class="site-author-name" itemprop="name">RainbowColors</p>
+          <p class="site-description motion-element" itemprop="description">好好学习,天天向上.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">标签</span>
+              
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DevSonw" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fireteam" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.cnbang.net/" target="_blank">Bang’s Blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/7c21f0b44ab8/latest_articles" target="_blank">味精’s 简书</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u534F_u8BAE"><span class="nav-number">1.</span> <span class="nav-text">协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u672C_u5730_u534F_u8BAE"><span class="nav-number">1.1.</span> <span class="nav-text">本地协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH_u534F_u8BAE"><span class="nav-number">1.2.</span> <span class="nav-text">SSH协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git_u534F_u8BAE"><span class="nav-number">1.3.</span> <span class="nav-text">Git协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP/S__u534F_u8BAE"><span class="nav-number">1.4.</span> <span class="nav-text">HTTP/S 协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u90E8_u7F72Git"><span class="nav-number">2.</span> <span class="nav-text">部署Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u751F_u6210SSH__u516C_u94A5"><span class="nav-number">3.</span> <span class="nav-text">生成SSH 公钥</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainbowColors</span>
+</div>
+
+<div class="powered-by">
+  Powered by : <a class="theme-link" href="http://hexo.io">Hexo</a> 
+</div>
+
+<div class="theme-info">
+  Design : 
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"devsnow"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>
