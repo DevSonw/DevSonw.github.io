@@ -1,0 +1,913 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Node.js,React Native," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.icons?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="React Native　　React Native是Facebook在React.js Conf 2015大会上开源的基于JavaScript开发iOS和Android原生应用的框架。到目前为止，网上关于React Native的讨论和解读已经有很多，我在这里就不多说，主要说一下自己在使用过程中的一些经历。本文站在iOS开发角度并假设读者已具备使用React Native的硬件和软件环境。　　R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native - Start">
+<meta property="og:url" content="http://yoursite.com/2016/03/26/React Native -Start/index.html">
+<meta property="og:site_name" content="DevSonw">
+<meta property="og:description" content="React Native　　React Native是Facebook在React.js Conf 2015大会上开源的基于JavaScript开发iOS和Android原生应用的框架。到目前为止，网上关于React Native的讨论和解读已经有很多，我在这里就不多说，主要说一下自己在使用过程中的一些经历。本文站在iOS开发角度并假设读者已具备使用React Native的硬件和软件环境。　　R">
+<meta property="og:updated_time" content="2016-03-30T15:05:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native - Start">
+<meta name="twitter:description" content="React Native　　React Native是Facebook在React.js Conf 2015大会上开源的基于JavaScript开发iOS和Android原生应用的框架。到目前为止，网上关于React Native的讨论和解读已经有很多，我在这里就不多说，主要说一下自己在使用过程中的一些经历。本文站在iOS开发角度并假设读者已具备使用React Native的硬件和软件环境。　　R">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> React Native - Start | DevSonw </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?106eb5246418247169fed9d2cf09934c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">DevSonw</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">RainbowColors's blog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '8DeogHD4sjLMNr-DtRod','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React Native - Start
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-26T16:13:34+08:00" content="2016-03-26">
+              2016-03-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Develop/" itemprop="url" rel="index">
+                    <span itemprop="name">Develop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/26/React Native -Start/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/26/React Native -Start/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/03/26/React Native -Start/" class="leancloud_visitors" data-flag-title="React Native - Start">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="React_Native"><a href="#React_Native" class="headerlink" title="React Native"></a>React Native</h2><p>　　React Native是Facebook在<strong><a href="http://conf.reactjs.com/" target="_blank" rel="external">React.js Conf 2015</a></strong>大会上开源的基于JavaScript开发iOS和Android原生应用的框架。到目前为止，网上关于React Native的讨论和解读已经有很多，我在这里就不多说，主要说一下自己在使用过程中的一些经历。<code>本文站在iOS开发角度并假设读者已具备使用React Native的硬件和软件环境</code>。<br>　　React Native通信机制详解: <strong><a href="http://blog.cnbang.net/tech/2698/" target="_blank" rel="external">戳这里&gt;&gt;&gt;Bang’s Blog</a></strong><br>　　如何评价React Native:<strong><a href="https://www.zhihu.com/question/27852694" target="_blank" rel="external">戳这里&gt;&gt;&gt;知乎</a></strong></p>
+<h2 id="u5F00_u59CB_u4F7F_u7528"><a href="#u5F00_u59CB_u4F7F_u7528" class="headerlink" title="开始使用"></a>开始使用</h2><h3 id="u65B0_u5EFA_u9879_u76EE"><a href="#u65B0_u5EFA_u9879_u76EE" class="headerlink" title="新建项目"></a>新建项目</h3><h4 id="u4F7F_u7528_u5B98_u65B9_u7ED9_u51FA_u65B9_u5F0F"><a href="#u4F7F_u7528_u5B98_u65B9_u7ED9_u51FA_u65B9_u5F0F" class="headerlink" title="使用官方给出方式"></a>使用官方给出方式</h4><p>　　新建项目有多种方式，我们先看一下官方Demo给出的方式。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ react-native init AwesomeProject</span><br></pre></td></tr></table></figure></p>
+<p>　　命令执行完成以后我们可以看到项目目录下有三个文件和三个文件夹，如果只是要支持iOS项目的话，可以删掉index.android.js文件和android文件夹。使用Xcode打开iOS项目并运行，即可看到初始项目。通过修改index.ios.js文件使用<code>command+R</code>快捷键即可看到对应的改动。</p>
+<h4 id="u4F7F_u7528CocoaPods__u4E3A_u539F_u751F_u9879_u76EE_u6DFB_u52A0React_Native"><a href="#u4F7F_u7528CocoaPods__u4E3A_u539F_u751F_u9879_u76EE_u6DFB_u52A0React_Native" class="headerlink" title="使用CocoaPods 为原生项目添加React Native"></a>使用CocoaPods 为原生项目添加React Native</h4><p>　　如果你已经有一个Xcode项目想要为其添加React Native模块，你可以使用CocoaPods引入React Native组件，在Podfile中添加下列内容:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ 请将:path后面的内容修改为正确的路径。</span><br><span class="line">pod <span class="string">'React'</span>, :path =&gt; <span class="string">'./node_modules/react-native'</span>, :subspecs =&gt; [</span><br><span class="line">  <span class="string">'RCTImage'</span>,</span><br><span class="line">  <span class="string">'RCTText'</span>,</span><br><span class="line">  <span class="string">'RCTWebSocket'</span>,</span><br><span class="line">  <span class="string">'你需要使用的组件'</span>,</span><br><span class="line">  ...</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>　　修改完成以后执行<code>pod install</code>命令。然后开始创建你的js代码。新建一个index.ios.js的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch index.ios.js</span><br></pre></td></tr></table></figure></p>
+<p>　　并复制粘贴下面的初始代码,Hello World：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  Component,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Text,</span><br><span class="line">  View</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AwesomeProject</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>=<span class="value">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;styles.welcome&#125;</span>&gt;</span></span><br><span class="line">          Welcome to React Native!</span><br><span class="line">        <span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;styles.instructions&#125;</span>&gt;</span></span><br><span class="line">          To get started, edit index.ios.js</span><br><span class="line">        <span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;styles.instructions&#125;</span>&gt;</span></span><br><span class="line">          Press Cmd+R to reload,&#123;'\n'&#125;</span><br><span class="line">          Cmd+D or shake for dev menu</span><br><span class="line">        <span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">View</span>&gt;</span></span><br><span class="line">    )</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  container: &#123;</span><br><span class="line">    flex: <span class="number">1</span>,</span><br><span class="line">    justifyContent: <span class="string">'center'</span>,</span><br><span class="line">    alignItems: <span class="string">'center'</span>,</span><br><span class="line">    backgroundColor: <span class="string">'#F5FCFF'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  welcome: &#123;</span><br><span class="line">    fontSize: <span class="number">20</span>,</span><br><span class="line">    textAlign: <span class="string">'center'</span>,</span><br><span class="line">    margin: <span class="number">10</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  instructions: &#123;</span><br><span class="line">    textAlign: <span class="string">'center'</span>,</span><br><span class="line">    color: <span class="string">'#333333'</span>,</span><br><span class="line">    marginBottom: <span class="number">5</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">AppRegistry.registerComponent(<span class="string">'AwesomeProject'</span>, () =&gt; AwesomeProject);</span><br></pre></td></tr></table></figure></p>
+<p>　　在Xcode项目中创建下面代码，运行起来，就可以看到效果。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">NSURL</span> *jsCodeLocation;</span><br><span class="line">  jsCodeLocation = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true"</span>];</span><br><span class="line"><span class="comment">//   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];</span></span><br><span class="line">  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</span><br><span class="line">                                                      moduleName:<span class="string">@"AwesomeProject"</span></span><br><span class="line">                                               initialProperties:<span class="literal">nil</span></span><br><span class="line">                                                   launchOptions:launchOptions];</span><br><span class="line">  <span class="keyword">self</span><span class="variable">.window</span> = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[<span class="built_in">UIScreen</span> mainScreen]<span class="variable">.bounds</span>];</span><br><span class="line">  <span class="built_in">UIViewController</span> *rootViewController = [<span class="built_in">UIViewController</span> new];</span><br><span class="line">  rootViewController<span class="variable">.view</span> = rootView;</span><br><span class="line">  <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.rootViewController</span> = rootViewController;</span><br><span class="line">  [<span class="keyword">self</span><span class="variable">.window</span> makeKeyAndVisible];</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="u73B0_u6709_u9879_u76EE_u690D_u5165React_Native"><a href="#u73B0_u6709_u9879_u76EE_u690D_u5165React_Native" class="headerlink" title="现有项目植入React Native"></a>现有项目植入React Native</h3><p>　　上面两种方式简单介绍了一下React Native的使用方法，实际上大部分人的情况是已经有iOS的项目，想要在Project中植入React Native模块，而且做到Native模块和JS模块相互通信。我们就从下面的例子开始讲起。<br>　　我们已经知道了一个支持React Native的项目包含了iOS项目文件，index.js文件，node_modules和一个叫做package.json的文件。为了使项目目录结构看起来清晰，我们先新建一个文件夹用来保存上面提到的四个文件。首先把已有的iOS项目，拷贝到此文件夹下。然后在此文件夹在创建<code>package.json</code>文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch package.json</span><br></pre></td></tr></table></figure></p>
+<p>　　编辑package.json文件，输入下面内容：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"iOS项目名称"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"版本号"</span></span>,</span><br><span class="line">  "<span class="attribute">private</span>": <span class="value"><span class="literal">true</span></span>,</span><br><span class="line">  "<span class="attribute">scripts</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">start</span>": <span class="value"><span class="string">"node node_modules/react-native/local-cli/cli.js start"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">dependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">react</span>": <span class="value"><span class="string">"^0.14.7"</span></span>,</span><br><span class="line">    "<span class="attribute">react-native</span>": <span class="value"><span class="string">"^0.18.0"</span></span>,</span><br><span class="line">    "<span class="attribute">其他组件名</span>":<span class="value"><span class="string">"^版本号"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　在此目录下创建一个文件夹，用来保存项目需要的JS文件，然后执行下面的命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
+<p>　　一段时间过后，我们就可以看到自动生成了node_modules这个文件夹，而且里面已经具备了我们需要使用React Native 组件。<br>　　打开Xcode项目，在node_modules目录中找到react-native文件夹，里面就是我们需要使用的React的组件，首先将React文件夹内的<code>React.xcodeproj</code>文件拖拽进去我们的Xcode项目内。这个<code>React.xcodeproj</code>工程内是使用React Native的一些基础组件。然后返回上层目录，进入<code>Libraries</code>文件夹，按照上面的操作依次加入需要使用的<code>xcodeproj</code>项目组件。<br>　　添加完成以后，打开Xcode项目，依次定位到<code>TARGETS&gt;Build Phases&gt;Link Binary Libraries&gt;</code>目录，将我们需要使用的libRCTxxx.a添加进来。然后点击左上角的加号，选择<code>New Run Script Phase</code>，名称为<code>Bundle React Native code and images</code>，在script中输入下面代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../node_modules/react-native/packager/react-native-xcode.sh</span><br></pre></td></tr></table></figure></p>
+<p>　　接下来选择<code>TARGETS&gt;Build Settings&gt;Search Paths&gt;Header Search Paths</code>，依次加入下面的三条内容：<br>　　<code>注意：React目录后面的选项为[recursive]</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</span><br><span class="line">$(SRCROOT)/../node_modules/react-native/React</span><br></pre></td></tr></table></figure></p>
+<p>　　最后一步，选择<code>TARGETS&gt;Build Settings&gt;Linking&gt;Other Linkers Flags</code>，输入”-ObjC”.然后在外面准备好你的index.ios.js和Appdelegate.m内相应的代码，Run起来，就可以开始开发啦。<strong>提醒：iOS9的用户不要忘记设置HTTPS到HTTP协议的支持噢！</strong></p>
+<p>　　</p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node-js/" rel="tag">#Node.js</a>
+          
+            <a href="/tags/React-Native/" rel="tag">#React Native</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/25/JSPatchConvertor-Mac-版/" rel="next" title="JSPatchConvertor--Mac 版">
+                <i class="fa fa-chevron-left"></i> JSPatchConvertor--Mac 版
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/26/React Native -Start/"
+           data-title="React Native - Start" data-url="http://yoursite.com/2016/03/26/React Native -Start/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="RainbowColors" />
+          <p class="site-author-name" itemprop="name">RainbowColors</p>
+          <p class="site-description motion-element" itemprop="description">❤少一缕浮躁❤　　❤多一丝执着❤</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DevSonw" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fireteam" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.cnbang.net/" target="_blank">Bang’s Blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://awhisper.github.io/" target="_blank">味精’s Blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://wereadteam.github.io/" target="_blank">We Read</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React_Native"><span class="nav-number">1.</span> <span class="nav-text">React Native</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5F00_u59CB_u4F7F_u7528"><span class="nav-number">2.</span> <span class="nav-text">开始使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u65B0_u5EFA_u9879_u76EE"><span class="nav-number">2.1.</span> <span class="nav-text">新建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#u4F7F_u7528_u5B98_u65B9_u7ED9_u51FA_u65B9_u5F0F"><span class="nav-number">2.1.1.</span> <span class="nav-text">使用官方给出方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u4F7F_u7528CocoaPods__u4E3A_u539F_u751F_u9879_u76EE_u6DFB_u52A0React_Native"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用CocoaPods 为原生项目添加React Native</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u73B0_u6709_u9879_u76EE_u690D_u5165React_Native"><span class="nav-number">2.2.</span> <span class="nav-text">现有项目植入React Native</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainbowColors</span>
+</div>
+
+<div class="powered-by">
+  Powered by : <a class="theme-link" href="http://hexo.io">Hexo</a> 
+</div>
+
+<div class="theme-info">
+  Design : 
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"devsnow"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("05KCujJeSVs8RRlPWsk5PrUJ-gzGzoHsz", "4SXt4cGLkoxiqFqeSB4RbRpL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
